@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 
 with open('README.md', 'r', encoding='utf-8') as fp:
     long_description = fp.read()
@@ -22,7 +22,7 @@ setup(
         'fastapi>=0.70.1'
     ],
     extra_require={
-        'all': ['uvicorn>=0.16.0']
+        'all': ['uvicorn>=0.16.0', 'starlette-csrf>=1.4.0']
     },
     tests_require=[
         'pytest>=6.2.0',

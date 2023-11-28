@@ -2,8 +2,12 @@ from typing import Optional
 from importlib import import_module
 from autoboot import AutoBoot
 from autoboot.plugin import AppPlugin, Runner
-from .web_properties import WebProperties
 from fastapi import FastAPI
+from fastapi.middleware.gzip import GZipMiddleware
+from starlette.middleware.sessions import SessionMiddleware
+from autoboot_web.middleware import UniformCSRFMiddleware
+from .server_properties import ServerProperties
+from .web_properties import WebProperties
 
 class WebRunner(AppPlugin):
   
@@ -21,17 +25,57 @@ class WebRunner(AppPlugin):
     return (WebRunner.__ctx__, app)
   
   def env_prepared(self) -> None:
+    packages: list[str] = []
     if self._scan_controllers:
-      if isinstance(self._scan_controllers, str):
-        #__import__(self._scan_controllers)
-        import_module(name=self._scan_controllers)
-      else:
-        for controller in self._scan_controllers:
-          import_module(name=controller)
+      packages.extend([self._scan_controllers] if isinstance(self._scan_controllers, str) else self._scan_controllers)
     
-    if WebProperties.scanControllerPackages():     
-      for package in WebProperties.scanControllerPackages():
-        import_module(name=package)
+    if WebProperties.scan_controller_packages():
+      packages.extend(WebProperties.scan_controller_packages()) 
+    
+    for package in packages:
+      #__import__(packages)
+      import_module(package)
+    
+    app = self.get_context()
+    
+    if ServerProperties.gzip_enable():
+      AutoBoot.logger.info("GZIP is enabled.")
+      app.add_middleware(GZipMiddleware, minimum_size=ServerProperties.gzip_minimum_size())
+      
+    if ServerProperties.session_enable():
+      AutoBoot.logger.info("Session is enabled.")
+      app.add_middleware(
+        SessionMiddleware, 
+        secret_key=ServerProperties.session_secret_key(),
+        session_cookie=ServerProperties.session_cookie_name(),
+        max_age=ServerProperties.session_max_age(),
+        same_site=ServerProperties.session_same_site(),
+        https_only=ServerProperties.session_https_only()
+      )
+    
+    if WebProperties.cross_origin():
+      AutoBoot.logger.info("Cross-Origin Resource Sharing (CORS) is enabled.")
+      from fastapi.middleware.cors import CORSMiddleware
+      app.add_middleware(
+        CORSMiddleware,
+        allow_origins=WebProperties.allow_origins(),
+        allow_credentials=WebProperties.allow_credentials(),
+        allow_methods=WebProperties.allow_methods(),
+        allow_headers=WebProperties.allow_headers(),
+        max_age=WebProperties.max_age()
+      )
+      
+    if WebProperties.csrf_enabled():
+      AutoBoot.logger.info("CSRF is enabled.")
+      app.add_middleware(
+        UniformCSRFMiddleware, 
+        secret=WebProperties.csrf_secret(), 
+        cookie_name=WebProperties.csrf_cookie_name(),
+        cookie_domain=WebProperties.csrf_cookie_domain(),
+        header_name=WebProperties.csrf_header_name()
+      )
+    
+    return super().env_prepared()
   
   def app_started(self) -> None:
     return super().app_started()

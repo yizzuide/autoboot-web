@@ -4,5 +4,21 @@ autoboot:
     module: api
 
   web:
+    http:
+      gzip:
+        enabled: true
+        # 小于1KB不压缩
+        minimum_size: 1000
+      session:
+        enable: true
+        name: "session_id"
+        max_age: 120000
+    security:
+      cors:
+        cross_origin: true
+      csrf:
+        enabled: true
+
+    # 扫描控制器包
     scan_controller_packages:
       - tests.test_runner.controller
