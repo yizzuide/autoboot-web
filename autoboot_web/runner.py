@@ -7,7 +7,7 @@ class WebRunner(AppPlugin):
   
   __ctx__ = "FastAPI"
   
-  def __init__(self, scan_controllers: Optional[str] = None) -> None:
+  def __init__(self, scan_controllers: Optional[str | list[str]] = None) -> None:
     self._scan_controllers = scan_controllers
   
   @staticmethod
@@ -20,7 +20,11 @@ class WebRunner(AppPlugin):
   
   def env_prepared(self) -> None:
     if self._scan_controllers:
-      __import__(self._scan_controllers)
+      if isinstance(self._scan_controllers, str):
+        __import__(self._scan_controllers)
+      else:
+        for controller in self._scan_controllers:
+          __import__(controller)
   
   def app_started(self) -> None:
     return super().app_started()
