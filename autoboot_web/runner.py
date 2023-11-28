@@ -1,4 +1,5 @@
 from typing import Optional
+from importlib import import_module
 from autoboot import AutoBoot
 from autoboot.plugin import AppPlugin, Runner
 from fastapi import FastAPI
@@ -21,10 +22,11 @@ class WebRunner(AppPlugin):
   def env_prepared(self) -> None:
     if self._scan_controllers:
       if isinstance(self._scan_controllers, str):
-        __import__(self._scan_controllers)
+        #__import__(self._scan_controllers)
+        import_module(name=self._scan_controllers)
       else:
         for controller in self._scan_controllers:
-          __import__(controller)
+          import_module(name=controller)
   
   def app_started(self) -> None:
     return super().app_started()
