@@ -5,5 +5,3 @@ from autoboot_web import WebRunner
 autoboot = AutoBoot(config=AutoBootConfig(config_dir="./tests/test_runner"))
 autoboot.apply(WebRunner(scan_controllers="tests.test_runner.controller"))
 autoboot.run()
-
-app = WebRunner.get_context()
