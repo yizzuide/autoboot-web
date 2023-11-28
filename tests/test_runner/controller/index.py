@@ -1,6 +1,7 @@
-from autoboot_web.mvc.annotation import Controller
-from autoboot_web.mvc.annotation.controller import Get
+
+from autoboot_web.mvc.annotation import Controller, Get
 from fastapi import Request
+
 
 @Controller(path="/")
 class IndexController:
