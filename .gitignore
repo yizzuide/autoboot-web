@@ -1,0 +1,11 @@
+*.egg-info
+*.log
+
+.vscode
+.idea
+.pytest_cache
+__pycache__
+build
+target
+dist
+logs
