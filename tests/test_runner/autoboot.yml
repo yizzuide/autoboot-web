@@ -2,3 +2,7 @@ autoboot:
   application:
     name: env(APPLICATION_NAME)
     module: api
+
+  web:
+    scan_controller_packages:
+      - tests.test_runner.controller

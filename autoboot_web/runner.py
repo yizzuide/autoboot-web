@@ -2,6 +2,7 @@ from typing import Optional
 from importlib import import_module
 from autoboot import AutoBoot
 from autoboot.plugin import AppPlugin, Runner
+from .web_properties import WebProperties
 from fastapi import FastAPI
 
 class WebRunner(AppPlugin):
@@ -27,6 +28,10 @@ class WebRunner(AppPlugin):
       else:
         for controller in self._scan_controllers:
           import_module(name=controller)
+    
+    if WebProperties.scanControllerPackages():     
+      for package in WebProperties.scanControllerPackages():
+        import_module(name=package)
   
   def app_started(self) -> None:
     return super().app_started()
