@@ -2,7 +2,7 @@
 import uuid
 from autoboot.annotation import value_component
 
-class ServerProperties:
+class HttpProperties:
   
   @value_component("autoboot.web.http.gzip.enable")
   @staticmethod

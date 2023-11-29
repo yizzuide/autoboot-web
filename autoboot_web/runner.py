@@ -5,7 +5,7 @@ from autoboot.plugin import AppPlugin, Runner
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from .server_properties import ServerProperties
+from .http_properties import HttpProperties
 from .web_properties import WebProperties
 
 class WebRunner(AppPlugin):
@@ -37,19 +37,19 @@ class WebRunner(AppPlugin):
     
     app = self.get_context()
     
-    if ServerProperties.gzip_enable():
+    if HttpProperties.gzip_enable():
       AutoBoot.logger.info("GZIP is enabled.")
-      app.add_middleware(GZipMiddleware, minimum_size=ServerProperties.gzip_minimum_size())
+      app.add_middleware(GZipMiddleware, minimum_size=HttpProperties.gzip_minimum_size())
       
-    if ServerProperties.session_enable():
+    if HttpProperties.session_enable():
       AutoBoot.logger.info("Session is enabled.")
       app.add_middleware(
         SessionMiddleware, 
-        secret_key=ServerProperties.session_secret_key(),
-        session_cookie=ServerProperties.session_cookie_name(),
-        max_age=ServerProperties.session_max_age(),
-        same_site=ServerProperties.session_same_site(),
-        https_only=ServerProperties.session_https_only()
+        secret_key=HttpProperties.session_secret_key(),
+        session_cookie=HttpProperties.session_cookie_name(),
+        max_age=HttpProperties.session_max_age(),
+        same_site=HttpProperties.session_same_site(),
+        https_only=HttpProperties.session_https_only()
       )
     
     if WebProperties.cross_origin():
