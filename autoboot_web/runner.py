@@ -5,7 +5,6 @@ from autoboot.plugin import AppPlugin, Runner
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from autoboot_web.middleware import UniformCSRFMiddleware
 from .server_properties import ServerProperties
 from .web_properties import WebProperties
 
@@ -66,7 +65,12 @@ class WebRunner(AppPlugin):
       )
       
     if WebProperties.csrf_enabled():
-      AutoBoot.logger.info("CSRF is enabled.")
+      AutoBoot.logger.info("CSRF is {}." , WebProperties.csrf_enabled())
+      try:
+        from autoboot_web.middleware import UniformCSRFMiddleware
+      except ImportError:
+        raise ImportError("CSRF middleware is not installed.")
+    
       app.add_middleware(
         UniformCSRFMiddleware, 
         secret=WebProperties.csrf_secret(), 

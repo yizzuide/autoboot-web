@@ -17,7 +17,7 @@ autoboot:
       cors:
         cross_origin: true
       csrf:
-        enabled: true
+        enabled: false
 
     # 扫描控制器包
     scan_controller_packages:

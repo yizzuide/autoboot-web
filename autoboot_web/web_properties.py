@@ -16,18 +16,18 @@ class WebProperties:
 
   @value_component("autoboot.web.security.cors.allow_origins")
   @staticmethod
-  def allow_origins() -> str:
-    return "*"
+  def allow_origins() -> list[str]:
+    return ["*"]
 
   @value_component("autoboot.web.security.cors.allow_methods")
   @staticmethod
-  def allow_methods() -> str:
-    return "GET, POST, PUT, DELETE, OPTIONS"
+  def allow_methods() -> list[str]:
+    return ["*"]
 
   @value_component("autoboot.web.security.cors.allow_headers")
   @staticmethod
-  def allow_headers() -> str:
-    return "*"
+  def allow_headers() -> list[str]:
+    return ["*"]
 
   @value_component("autoboot.web.security.cors.allow_credentials")
   @staticmethod
@@ -42,7 +42,7 @@ class WebProperties:
   @value_component("autoboot.web.security.csrf.enabled")
   @staticmethod
   def csrf_enabled() -> bool:
-    return True
+    return False
   
   @value_component("autoboot.web.security.csrf.secret")
   @staticmethod

@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-VERSION = '0.2.0'
+VERSION = '0.2.1'
 
 with open('README.md', 'r', encoding='utf-8') as fp:
     long_description = fp.read()
@@ -19,10 +19,11 @@ setup(
     include_package_data=True,
     install_requires=[
         'autoboot>=0.5.2',
-        'fastapi>=0.70.1'
+        'fastapi>=0.70.1',
+        'uvicorn>=0.16.0'
     ],
     extra_require={
-        'all': ['uvicorn>=0.16.0', 'starlette-csrf>=1.4.0']
+        'all': ['starlette-csrf>=1.4.0']
     },
     tests_require=[
         'pytest>=6.2.0',
