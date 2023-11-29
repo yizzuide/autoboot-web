@@ -65,7 +65,7 @@ class WebRunner(AppPlugin):
       )
       
     if WebProperties.csrf_enabled():
-      AutoBoot.logger.info("CSRF is {}." , WebProperties.csrf_enabled())
+      AutoBoot.logger.info("CSRF is enabled.")
       try:
         from autoboot_web.middleware import UniformCSRFMiddleware
       except ImportError:
