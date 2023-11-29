@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-VERSION = '0.2.2'
+VERSION = '0.3.0'
 
 with open('README.md', 'r', encoding='utf-8') as fp:
     long_description = fp.read()
@@ -18,7 +18,7 @@ setup(
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     install_requires=[
-        'autoboot>=0.5.2',
+        'autoboot>=0.6.0',
         'fastapi>=0.70.1',
         'uvicorn>=0.16.0'
     ],
