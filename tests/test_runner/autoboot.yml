@@ -1,6 +1,6 @@
 autoboot:
   application:
-    name: !env APPLICATION_NAME
+    name: !env $APPLICATION_NAME
     module: &module api
 
   web:
@@ -8,7 +8,7 @@ autoboot:
       gzip:
         enabled: true
         # 小于1KB不压缩
-        minimum_size: 1000
+        minimum_size: 1KB
       session:
         enable: true
         cookie_name: "session_id"

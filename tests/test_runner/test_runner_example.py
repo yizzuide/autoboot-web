@@ -10,4 +10,5 @@ app = autoboot.run(lambda: WebRunner.get_context())
 
 AutoBoot.logger.warning("app name: {}", ApplicationProperties.app_name())
 AutoBoot.logger.warning("session max age: {}", HttpProperties.session_max_age())
+AutoBoot.logger.warning("gzip mini-size: {}", HttpProperties.minimum_size())
 
