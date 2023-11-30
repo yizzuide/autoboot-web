@@ -18,7 +18,7 @@ setup(
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     install_requires=[
-        'autoboot>=0.6.0',
+        'autoboot>=0.7.0',
         'fastapi>=0.70.1',
         'uvicorn>=0.16.0'
     ],
