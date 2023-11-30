@@ -1,42 +1,39 @@
 from typing import Optional
 from importlib import import_module
 from autoboot import AutoBoot
-from autoboot.plugin import AppPlugin, Runner
+from autoboot.plugin import AppPlugin
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from .http_properties import HttpProperties
 from .web_properties import WebProperties
 
-class WebRunner(AppPlugin):
+class WebRunner(AppPlugin[FastAPI]):
   
-  __ctx__ = "FastAPI"
+  # custom context name, default is class name
+  #context_name = "WebRunner"
   
   def __init__(self, scan_controllers: Optional[str | list[str]] = None) -> None:
     self._scan_controllers = scan_controllers
   
-  @staticmethod
-  def get_context() -> FastAPI:
-    return AutoBoot.get_context(WebRunner.__ctx__)
-  
-  def install(self) -> Runner:
-    app = FastAPI()
-    return (WebRunner.__ctx__, app)
+  def install(self) -> FastAPI:
+    return FastAPI()
   
   def env_prepared(self) -> None:
-    packages: list[str] = []
+    self.packages: list[str] = []
     if self._scan_controllers:
-      packages.extend([self._scan_controllers] if isinstance(self._scan_controllers, str) else self._scan_controllers)
+      self.packages.extend([self._scan_controllers] if isinstance(self._scan_controllers, str) else self._scan_controllers)
     
     if WebProperties.scan_controller_packages():
-      packages.extend(WebProperties.scan_controller_packages()) 
-    
-    for package in packages:
-      #__import__(packages)
+      self.packages.extend(WebProperties.scan_controller_packages()) 
+      
+  
+  def app_started(self) -> None:
+    for package in self.packages:
       import_module(package)
-    
+      
     app = self.get_context()
-    
+
     if HttpProperties.gzip_enable():
       AutoBoot.logger.info("GZIP is enabled.")
       app.add_middleware(GZipMiddleware, minimum_size=HttpProperties.gzip_minimum_size())
@@ -78,9 +75,3 @@ class WebRunner(AppPlugin):
         cookie_domain=WebProperties.csrf_cookie_domain(),
         header_name=WebProperties.csrf_header_name()
       )
-    
-    return super().env_prepared()
-  
-  def app_started(self) -> None:
-    return super().app_started()
-  
