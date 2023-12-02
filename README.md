@@ -63,7 +63,7 @@ autoboot:
       - controller
 ```
 
-#### 创建目录`listener`
+#### 创建目录`controller`
 
 * 在该目录下创建`__init__.py`
 ```py
