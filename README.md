@@ -6,13 +6,13 @@
   </a>
   <a href="https://pypi.org/project/autoboot-web">
         <img src="https://img.shields.io/pypi/pyversions/autoboot-web.svg?color=%2334D058" alt="Python">
-    </a>
-    <a href="https://pepy.tech/project/autoboot-web">
-        <img src="https://static.pepy.tech/personalized-badge/autoboot-web?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads" alt="Downloads">
-    </a>
-    <a href="https://github.com/yizzuide/autoboot-web/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/yizzuide/autoboot-web" alt="License">
-    </a>
+  </a>
+  <a href="https://pepy.tech/project/autoboot-web">
+      <img src="https://static.pepy.tech/personalized-badge/autoboot-web?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads" alt="Downloads">
+  </a>
+  <a href="https://github.com/yizzuide/autoboot-web/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/yizzuide/autoboot-web" alt="License">
+  </a>
 </p>
 
 ## Quick Start
@@ -108,7 +108,7 @@ uvicorn example.main:app --host 127.0.0.1 --port 8000 --env-file .env
 有问题可以在issues开话题讨论，如果你有新的想法，创建新的`feat`或`pref`分支并提交PR。
 
 ## License
-[MIT License](https://github.com/yizzuide/autoboot/blob/main/LICENSE)
+[MIT License](https://github.com/yizzuide/autoboot/blob/main/LICENSE.txt)
 
 ## Citation
 ```bibtex
