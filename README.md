@@ -27,6 +27,7 @@ pip install autoboot-web
 
 * 启动配置文件`.env`
 ```ini
+# 环境名称（默认值：dev，框架根据这个配置项来加载当前的环境配置）
 ENV_NAME=dev
 
 APPLICATION_NAME=web-runner
