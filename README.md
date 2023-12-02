@@ -1,5 +1,5 @@
 # autoboot web starter
-基于autoboot框架的插件机制扩展，集成了`FastAPI`框架，专注于web开发方向。
+基于[autoboot](https://github.com/yizzuide/autoboot-web)框架的插件机制扩展，集成了`FastAPI`框架，专注于web开发方向。
 <p>
   <a href="https://pypi.org/project/autoboot-web">
       <img src="https://img.shields.io/pypi/v/autoboot-web?color=%2334D058&label=pypi%20package" alt="Version">
