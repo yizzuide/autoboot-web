@@ -93,7 +93,7 @@ from autoboot_web import WebRunner
 
 context = Autoboot(AutoBootConfig(config_dir="."))
 # 注册插件
-autoboot.apply(WebRunner())
+context.apply(WebRunner())
 # 暴露插件的Runner到全局变量（FastAPI使用的unicorn启动时会用到）
 app = context.run(lambda: WebRunner.get_context())
 ```
