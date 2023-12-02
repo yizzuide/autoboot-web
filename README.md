@@ -18,7 +18,7 @@
 ## Quick Start
 
 ### Install
-```bash
+```sh
 pip install autoboot-web
 ```
 
@@ -116,4 +116,5 @@ uvicorn example.main:app --host 127.0.0.1 --port 8000 --env-file .env
   title     = {autobootWeb: Web starter build with autoboot and FastAPI},
   year      = {2023},
 }
+```
 
