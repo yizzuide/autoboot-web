@@ -1,3 +1,4 @@
+import asyncio
 from typing import Optional
 from importlib import import_module
 from autoboot import AutoBoot
@@ -10,14 +11,26 @@ from .web_properties import WebProperties
 
 class WebRunner(AppPlugin[FastAPI]):
   
+  _loop: asyncio.AbstractEventLoop
+  
   # custom context name, default is class name
   #context_name = "WebRunner"
   
   def __init__(self, scan_controllers: Optional[str | list[str]] = None) -> None:
     self._scan_controllers = scan_controllers
+    
+  def get_event_loop(cls) -> asyncio.AbstractEventLoop:
+    return cls._loop
   
   def install(self) -> FastAPI:
-    return FastAPI()
+    app = FastAPI()
+    
+    @app.on_event("startup")
+    def startup_event() -> None:
+      WebRunner._loop = asyncio.get_running_loop()
+      AutoBoot.logger.info("hold event loop: {}.", WebRunner._loop)
+      
+    return app
   
   def env_prepared(self) -> None:
     self.packages: list[str] = []

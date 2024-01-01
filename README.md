@@ -110,12 +110,3 @@ uvicorn example.main:app --host 127.0.0.1 --port 8000 --env-file .env
 ## License
 [MIT License](https://github.com/yizzuide/autoboot/blob/main/LICENSE.txt)
 
-## Citation
-```bibtex
-@article{yizzuide2023autobootWeb,
-  author    = {yizzuide},
-  title     = {autobootWeb: Web starter build with autoboot and FastAPI},
-  year      = {2023},
-}
-```
-
