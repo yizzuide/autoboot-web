@@ -19,6 +19,9 @@ class WebRunner(AppPlugin[FastAPI]):
   def __init__(self, scan_controllers: Optional[str | list[str]] = None) -> None:
     self._scan_controllers = scan_controllers
     
+  def __repr__(self) -> str:
+    return f"WebRunner(scan_controllers={self.scan_controllers}"
+    
   def get_event_loop(cls) -> asyncio.AbstractEventLoop:
     return cls._loop
   

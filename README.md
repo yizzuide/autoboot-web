@@ -97,6 +97,9 @@ context = Autoboot(AutoBootConfig(config_dir="."))
 context.apply(WebRunner())
 # 暴露插件的Runner到全局变量（FastAPI使用的unicorn启动时会用到）
 app = context.run(lambda: WebRunner.get_context())
+
+# 其它使用 FastAPI 实例 app 的代码
+# ...
 ```
 
 #### 启动服务器
