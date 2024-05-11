@@ -1,3 +1,5 @@
+#yaml-language-server: $schema=/usr/local/lib/python3.11/site-packages/autoboot/autoboot.schema.json
+# yaml-language-server: $schema=../../autoboot_web/autoboot-web.schema.json
 autoboot:
   application:
     name: !env $APPLICATION_NAME
@@ -6,7 +8,7 @@ autoboot:
   web:
     http:
       gzip:
-        enabled: true
+        enable: true
         # 小于1KB不压缩
         minimum_size: 1KB
       session:
@@ -17,7 +19,7 @@ autoboot:
       cors:
         cross_origin: true
       csrf:
-        enabled: false
+        enable: false
 
     # 扫描控制器包
     scan_controller_packages:

@@ -48,7 +48,7 @@ autoboot:
   web:
     http:
       gzip:
-        enabled: true
+        enable: true
         # 小于1KB不压缩
         minimum_size: 1KB
       session:

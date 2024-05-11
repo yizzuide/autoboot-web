@@ -77,7 +77,7 @@ class WebRunner(AppPlugin[FastAPI]):
         max_age=WebProperties.max_age()
       )
       
-    if WebProperties.csrf_enabled():
+    if WebProperties.csrf_enable():
       AutoBoot.logger.info("CSRF is enabled.")
       try:
         from autoboot_web.middleware import UniformCSRFMiddleware

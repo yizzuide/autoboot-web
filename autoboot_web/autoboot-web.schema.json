@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "autoboot",
+  "description": "A configuration validation for the autoboot.yml file.",
+  "type": "object",
+  "properties": {
+    "autoboot": {
+      "description": "autoboot application configuration root node.",
+      "type": "object",
+      "properties": {
+        "web": {
+          "description": "web application configuration.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "scan_controller_packages": {
+              "description": "scan web controller packages.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "http": {
+              "description": "http server configuration.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "gzip": {
+                  "description": "gzip compression configuration.",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enable": {
+                      "description": "enable gzip compression.",
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "minimum_size": {
+                      "description": "minimum size of response body to compress.",
+                      "type": "string",
+                      "default": "1KB"
+                    }
+                  }
+                },
+                "session": {
+                  "description": "session configuration.",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enable": {
+                      "description": "enable session.",
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "cookie_name": {
+                      "description": "session cookie name.",
+                      "type": "string",
+                      "default": "session"
+                    },
+                    "secret": {
+                      "description": "session secret key.",
+                      "type": "string"
+                    },
+                    "max_age": {
+                      "description": "session cookie max_age.",
+                      "type": "string",
+                      "default": "120m"
+                    },
+                    "same_site": {
+                      "description": "session cookie same_site.",
+                      "type": "string",
+                      "default": "lax"
+                    },
+                    "https_only": {
+                      "description": "session cookie https_only.",
+                      "type": "boolean",
+                      "default": false
+                    }
+                  }
+                }
+              }
+            },
+            "security": {
+              "description": "web security configuration.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "cors": {
+                  "description": "security cors configuration.",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "cross_origin": {
+                      "description": "enable cross origin.",
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "allow_origins": {
+                      "description": "allowed cors origins.",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "allow_methods": {
+                      "description": "allowed cors methods.",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "allow_headers": {
+                      "description": "allowed cors headers.",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "allow_credentials": {
+                      "description": "allowed credentials.",
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "max_age": {
+                      "description": "max age.",
+                      "type": "number",
+                      "default": 3600
+                    }
+                  }
+                },
+                "csrf": {
+                  "description": "security csrf config.",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enable": {
+                      "description": "enable csrf.",
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "secret": {
+                      "description": "csrf secret.",
+                      "type": "string"
+                    },
+                    "cookie_name": {
+                      "description": "csrf cookie name.",
+                      "type": "string",
+                      "default": "CSRF_Token"
+                    },
+                    "csrf_cookie_domain": {
+                      "description": "csrf cookie domain.",
+                      "type": "string"
+                    },
+                    "header_name": {
+                      "description": "csrf header name.",
+                      "type": "string",
+                      "default": "X-CSRF-Token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

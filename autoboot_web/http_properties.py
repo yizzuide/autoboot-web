@@ -9,7 +9,7 @@ class HttpProperties:
     return False
 
   @static_property("autoboot.web.http.gzip.minimum_size")
-  def minimum_size() -> int:
+  def gzip_minimum_size() -> int:
     return 1000
 
   @static_property("autoboot.web.http.session.enable")

@@ -32,8 +32,8 @@ class WebProperties:
   def max_age() -> int:
     return 3600
 
-  @static_property("autoboot.web.security.csrf.enabled")
-  def csrf_enabled() -> bool:
+  @static_property("autoboot.web.security.csrf.enable")
+  def csrf_enable() -> bool:
     return False
   
   @static_property("autoboot.web.security.csrf.secret")
@@ -42,7 +42,7 @@ class WebProperties:
 
   @static_property("autoboot.web.security.csrf.cookie_name")
   def csrf_cookie_name() -> str:
-    return "csrf_token"
+    return "CSRF_Token"
   
   @static_property("autoboot.web.security.csrf.csrf_cookie_domain")
   def csrf_cookie_domain() -> str:
@@ -50,4 +50,4 @@ class WebProperties:
 
   @static_property("autoboot.web.security.csrf.header_name")
   def csrf_header_name() -> str:
-    return "X-CSRF-TOKEN"
+    return "X-CSRF-Token"
