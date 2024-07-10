@@ -1,4 +1,6 @@
 
+import asyncio
+
 from autoboot_web.mvc.annotation import Controller, Get
 from fastapi import Request
 
@@ -7,7 +9,8 @@ from fastapi import Request
 class IndexController:
   
   @Get("/index")
-  def index(self, name, request: Request):
+  async def index(self, name, request: Request):
     print(request.headers)
     print(request.query_params)
+    await asyncio.sleep(1)
     return f"Hello: {name}"

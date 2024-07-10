@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Type, Optional
 from fastapi.routing import APIRouter
 from autoboot_web import WebRunner
 from autoboot_web.mvc import ClassBasedView
@@ -16,7 +16,7 @@ def Controller(path: Optional[str] = None, tag: Optional[str] = None):
     if not path.startswith("/"):
       path = "/" + path
   
-  def wrapper(cls) -> ClassBasedView:
+  def wrapper(cls) -> Type[ClassBasedView]:
     router = APIRouter(tags=[tag] if tag else None)
     
     items = cls.__dict__.items()
@@ -40,46 +40,52 @@ def Controller(path: Optional[str] = None, tag: Optional[str] = None):
           
         if method.req_method == "GET":
           router.add_api_route(
-              method.__path__,
-              method,
+              path=method.__path__,
+              endpoint=method,
               methods=["GET"],
               **method.__kwargs__
           )
         elif method.req_method == "POST":
           router.add_api_route(
-              method.__path__,
-              method,
+              path=method.__path__,
+              endpoint=method,
               methods=["POST"],
               **method.__kwargs__
           )
         elif method.req_method == "PUT":
           router.add_api_route(
-              method.__path__,
-              method,
+              path=method.__path__,
+              endpoint=method,
               methods=["PUT"],
               **method.__kwargs__
           )
         elif method.req_method == "DELETE":
           router.add_api_route(
-              method.__path__,
-              method,
+              path=method.__path__,
+              endpoint=method,
               methods=["DELETE"],
               **method.__kwargs__
           )
         elif method.req_method == "PATCH":
           router.add_api_route(
-              method.__path__,
-              method,
+              path=method.__path__,
+              endpoint=method,
               methods=["PATCH"],
               **method.__kwargs__
           )
         else:
           raise Exception("Unknown request method")
+        
+    # Add get_router method to the class
+    cls.get_router = classmethod(lambda: router)
+    
     # rectify routes which bind on method
-    view = ClassBasedView(router=router, cls=cls)
+    classBasedView = ClassBasedView(router=router, cls=cls)
+    
     # register router
     WebRunner.get_context().include_router(router)
-    return view
+    
+    return classBasedView
   return wrapper
 
 
