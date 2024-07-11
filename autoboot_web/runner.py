@@ -1,13 +1,27 @@
+
 import asyncio
 from typing import Optional
 from importlib import import_module
+from contextlib import asynccontextmanager
+
 from autoboot import AutoBoot
 from autoboot.plugin import AppPlugin
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
 from starlette.middleware.sessions import SessionMiddleware
+
 from .http_properties import HttpProperties
 from .web_properties import WebProperties
+
+
+@asynccontextmanager
+async def app_lifespan(app: FastAPI):
+  # init lifespan
+  WebRunner._loop = asyncio.get_running_loop()
+  AutoBoot.logger.info("hold event loop: {}.", WebRunner._loop)
+  yield
+  #clean up lifespan
+
 
 class WebRunner(AppPlugin[FastAPI]):
   
@@ -20,20 +34,13 @@ class WebRunner(AppPlugin[FastAPI]):
     self._scan_controllers = scan_controllers
     
   def __repr__(self) -> str:
-    return f"WebRunner(scan_controllers={self.scan_controllers}"
+    return f"WebRunner(scan_controllers={self._scan_controllers}"
     
   def get_event_loop(cls) -> asyncio.AbstractEventLoop:
     return cls._loop
   
   def install(self) -> FastAPI:
-    app = FastAPI()
-    
-    @app.on_event("startup")
-    def startup_event() -> None:
-      WebRunner._loop = asyncio.get_running_loop()
-      AutoBoot.logger.info("hold event loop: {}.", WebRunner._loop)
-      
-    return app
+    return FastAPI(lifespan=app_lifespan)
   
   def env_prepared(self) -> None:
     self.packages: list[str] = []
