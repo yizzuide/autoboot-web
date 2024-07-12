@@ -4,6 +4,8 @@ autoboot:
   application:
     name: !env $APPLICATION_NAME
     module: &module api
+    scan_listener_packages:
+      - tests.test_runner.listener
 
   web:
     http:
@@ -23,3 +25,22 @@ autoboot:
 
     scan_controller_packages:
       - tests.test_runner.controller
+
+    uniform:
+      exception:
+        global:
+          code: -1
+          message: 服务器异常：{}
+        request_validation:
+          code: -1
+          message: 请求参数异常：{}
+
+    discovery:
+      nacos:
+        enable: true
+        namespace: ns-test
+        group_name: test-group
+        service_name: test-service
+        service_ip: 127.0.0.1
+        service_port: 8001
+

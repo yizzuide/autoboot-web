@@ -24,8 +24,7 @@ def nacos_client():
     heartbeat_interval=NacosProperties.heartbeat_interval()
   )
   if success:
-    AutoBoot.logger.info(f"nacos register service[{NacosProperties.service_name()}]-\
-      {NacosProperties.service_ip()}:{NacosProperties.service_port()}")
+    AutoBoot.logger.info(f"nacos register service[{NacosProperties.service_name()}] on {NacosProperties.service_ip()}:{NacosProperties.service_port()}")
   else:
     AutoBoot.logger.error(f"nacos register service[{NacosProperties.service_name()}] fail.")
   return client

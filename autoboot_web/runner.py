@@ -6,8 +6,10 @@ from contextlib import asynccontextmanager
 
 from autoboot import AutoBoot
 from autoboot.plugin import AppPlugin
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, status
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from starlette.middleware.sessions import SessionMiddleware
 
 from .http_properties import HttpProperties
@@ -56,6 +58,27 @@ class WebRunner(AppPlugin[FastAPI]):
       import_module(package)
       
     app = self.get_context()
+    
+    @app.exception_handler(RequestValidationError)
+    async def validation_exception_handler(request: Request, exc: RequestValidationError):
+      return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content={
+          "code": WebProperties.exception_request_validation_code(),
+          "message": WebProperties.exception_request_validation_message().replace("{}", str(exc.errors()))
+        },
+      )
+      
+    # handle global exception
+    @app.exception_handler(Exception)
+    async def global_exception_handler(request: Request, exc: Exception):
+      return JSONResponse(
+          status_code=status.HTTP_200_OK,
+          content={
+            "code": WebProperties.exception_global_code(),
+            "message": WebProperties.exception_global_message().replace("{}", str(exc))
+          },
+      )
 
     if HttpProperties.gzip_enable():
       AutoBoot.logger.info("GZIP is enabled.")

@@ -34,7 +34,7 @@ class NacosProperties(object):
 
   @static_property("autoboot.web.discovery.nacos.service_name")
   def service_name():
-    return "test"
+    return "test-service"
   
   @static_property("autoboot.web.discovery.nacos.service_ip")
   def service_ip():
@@ -50,4 +50,4 @@ class NacosProperties(object):
   
   @static_property("autoboot.web.discovery.nacos.heartbeat_interval")
   def heartbeat_interval():
-    return 5
+    return 2

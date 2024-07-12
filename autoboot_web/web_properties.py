@@ -51,3 +51,19 @@ class WebProperties:
   @static_property("autoboot.web.security.csrf.header_name")
   def csrf_header_name() -> str:
     return "X-CSRF-Token"
+  
+  @static_property("autoboot.web.uniform.exception.global.code")
+  def exception_global_code():
+    return 500
+  
+  @static_property("autoboot.web.uniform.exception.global.message")
+  def exception_global_message():
+    return "Server error: {}"
+  
+  @static_property("autoboot.web.uniform.exception.request_validation.code")
+  def exception_request_validation_code():
+    return 400
+  
+  @static_property("autoboot.web.uniform.exception.request_validation.message")
+  def exception_request_validation_message():
+    return "Request valid error: {}"
