@@ -1,13 +1,14 @@
 
 from autoboot import AutoBoot
 from autoboot.annotation import component, conditional
-from nacos import NacosClient
 
 from .nacos_properties import NacosProperties
 
 @conditional(value="autoboot.web.discovery.nacos.enable", having_value=True)
 @component()
 def nacos_client():
+  from nacos import NacosClient
+  
   client = NacosClient(
     server_addresses=NacosProperties.server_address(),
     namespace=NacosProperties.namespace(),

@@ -1,7 +1,9 @@
+
 from typing import Type, Optional
 from fastapi.routing import APIRouter
+
 from autoboot_web import WebRunner
-from autoboot_web.mvc import ClassBasedView
+from autoboot_web.mvc import class_based_view
 
 
 def Controller(path: Optional[str] = None, tag: Optional[str] = None):
@@ -16,7 +18,7 @@ def Controller(path: Optional[str] = None, tag: Optional[str] = None):
     if not path.startswith("/"):
       path = "/" + path
   
-  def wrapper(cls) -> Type[ClassBasedView]:
+  def wrapper(cls) -> Type[class_based_view]:
     router = APIRouter(tags=[tag] if tag else None)
     
     items = cls.__dict__.items()
@@ -80,7 +82,7 @@ def Controller(path: Optional[str] = None, tag: Optional[str] = None):
     cls.get_router = classmethod(lambda: router)
     
     # rectify routes which bind on method
-    classBasedView = ClassBasedView(router=router, cls=cls)
+    classBasedView = class_based_view(router=router, cls=cls)
     
     # register router
     WebRunner.get_context().include_router(router)

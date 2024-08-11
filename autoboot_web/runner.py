@@ -12,6 +12,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.middleware.sessions import SessionMiddleware
 
+from autoboot_web.discovery.nacos.nacos_properties import NacosProperties
 from .http_properties import HttpProperties
 from .web_properties import WebProperties
 
@@ -121,3 +122,11 @@ class WebRunner(AppPlugin[FastAPI]):
         cookie_domain=WebProperties.csrf_cookie_domain(),
         header_name=WebProperties.csrf_header_name()
       )
+      
+    if NacosProperties.enable():
+      AutoBoot.logger.info("Nacos is enabled.")
+      try:
+        from nacos import NacosClient
+      except ImportError:
+        raise ImportError("nacos is not installed.")
+      

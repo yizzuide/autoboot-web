@@ -1,6 +1,6 @@
 
 from autoboot.annotation import static_property
-from nacos import client
+
 
 class NacosProperties(object):
     
@@ -46,6 +46,8 @@ class NacosProperties(object):
   
   @static_property("autoboot.web.discovery.nacos.group_name")
   def group_name():
+    from nacos import client
+    
     return client.DEFAULT_GROUP_NAME
   
   @static_property("autoboot.web.discovery.nacos.heartbeat_interval")

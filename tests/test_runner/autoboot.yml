@@ -37,7 +37,7 @@ autoboot:
 
     discovery:
       nacos:
-        enable: true
+        enable: false
         namespace: ns-test
         group_name: test-group
         service_name: test-service

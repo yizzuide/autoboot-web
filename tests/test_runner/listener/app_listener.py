@@ -9,5 +9,6 @@ class AppListener(ApplicationListener):
   
   def on_started(self):
     nacos = nacos_client()
-    service_list = nacos.list_naming_instance(service_name="test-service", group_name="test-group")
-    AutoBoot.logger.warning(f"nacos service list: {service_list}")
+    if nacos:
+      service_list = nacos.list_naming_instance(service_name="test-service", group_name="test-group")
+      AutoBoot.logger.warning(f"nacos service list: {service_list}")

@@ -1,4 +1,4 @@
 
-from .apply_router import class_based_view as ClassBasedView
+from .apply_router import _cbv as class_based_view
 
-__all__ = ["ClassBasedView"]
+__all__ = ["class_based_view"]

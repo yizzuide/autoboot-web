@@ -12,5 +12,5 @@ class IndexController:
   async def index(self, name, request: Request):
     print(request.headers)
     print(request.query_params)
-    await asyncio.sleep(1)
+    #await asyncio.sleep(1)
     return f"Hello: {name}"

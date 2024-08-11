@@ -6,6 +6,6 @@ from autoboot_web.mvc.annotation import Controller, Get
 class UserController:
   
   @Get("/find/{id}")
-  def findUser(self, id):
+  async def findUser(self, id):
     return f"User: {id}"
 
