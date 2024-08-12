@@ -1,4 +1,4 @@
-autoboot>=0.12.1, <1.0
+autoboot>=0.12.2, <1.0
 fastapi>=0.110.0, <1.0
 uvicorn>=0.27.0, <1.0
 aiohttp>=3.8.1, <4.0

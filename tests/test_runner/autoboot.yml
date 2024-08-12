@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=../../autoboot_web/autoboot-web.schema.json
 autoboot:
   application:
-    name: !env $APPLICATION_NAME
+    name: &app_name !env $APPLICATION_NAME
     module: &module api
     scan_listener_packages:
       - tests.test_runner.listener
